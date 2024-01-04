@@ -1,1 +1,1 @@
-# CryptoHub
+# CryptoStack
