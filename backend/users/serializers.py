@@ -13,6 +13,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
         data.pop("password")
+
         return data
 
     def save(self, **kwargs):
@@ -25,7 +26,6 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         password = attrs.get("password", None)
-        try:
-            validate_password(password)
-        finally:
-            return attrs
+        validate_password(password)
+
+        return attrs
