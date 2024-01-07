@@ -2,6 +2,7 @@ import api from "./apiService.js";
 
 const setToken = (token) => {
   api.defaults.headers.common["Authorization"] = `Token ${token}`;
+  localStorage.setItem("token", token);
 };
 
 const login = async (data) => {
@@ -15,4 +16,8 @@ const register = async (data) => {
   await login(data);
 };
 
-export { login, register };
+const logout = () => {
+  localStorage.removeItem("token");
+};
+
+export { login, register, logout };

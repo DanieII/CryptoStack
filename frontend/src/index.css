@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,12 +12,21 @@
   box-sizing: border-box;
 }
 
+html {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  @apply bg-neutral-950;
+}
+
 #root,
 body {
   @apply min-h-screen;
 }
 
 /* Container */
+
 .container {
   @apply w-full max-w-screen-2xl mx-auto py-4 px-8;
 }
@@ -23,11 +34,11 @@ body {
 /* Form */
 
 .form {
-  @apply flex flex-col bg-neutral-950 px-8 py-10 rounded-xl my-auto;
+  @apply flex flex-col bg-neutral-900 px-8 py-10 rounded-xl my-auto;
 }
 
 .form input {
-  @apply bg-neutral-900 p-3 rounded-md text-white placeholder-neutral-600;
+  @apply bg-neutral-800 p-3 rounded-md text-white placeholder-neutral-600;
 }
 
 .form input:not(:last-of-type) {
@@ -47,5 +58,15 @@ body {
 /* Error */
 
 .error {
-  @apply text-red-500 mt-3  text-center;
+  @apply text-red-500 mt-3  text-center max-w-56 mx-auto;
+}
+
+/* Nav Links */
+
+nav ul a {
+  @apply relative after:block after:absolute after:top-full after:w-0 after:h-0.5 after:transition-all hover:after:w-full after:bg-white;
+}
+
+nav .active {
+  @apply after:w-full;
 }
