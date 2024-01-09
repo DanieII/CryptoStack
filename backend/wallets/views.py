@@ -1,8 +1,13 @@
 from rest_framework import generics
-from .serializers import WalletSerializer
-from rest_framework.response import Response
+from .serializers import WalletListSerializer, WalletCreateSerializer
 from .models import Wallet
 
 
-class WalletCreateView(generics.CreateAPIView):
-    serializer_class = WalletSerializer
+class WalletView(generics.ListCreateAPIView):
+    queryset = Wallet.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return WalletCreateSerializer
+        else:
+            return WalletListSerializer

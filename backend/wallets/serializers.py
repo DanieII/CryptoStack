@@ -2,21 +2,21 @@ from rest_framework import serializers
 from .models import Wallet, Coin
 
 
-class WalletSerializer(serializers.ModelSerializer):
+class WalletListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wallet
-        fields = "__all__"
+        fields = ["id", "platform"]
 
 
 class WalletCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wallet
-        fields = "__all__"
+        fields = ["platform", "api_key"]
 
-    def save(self, **kwargs):
-        # TODO: See if all fields are required
-        # add user
-        return super().save(**kwargs)
+    def to_internal_value(self, data):
+        instance = super().to_internal_value(data)
+        instance["user"] = self.context["request"].user
+        return instance
 
 
 class CoinSerializer(serializers.ModelSerializer):

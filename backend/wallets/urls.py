@@ -1,3 +1,4 @@
 from django.urls import path
+from .views import WalletView
 
-urlpatterns = []
+urlpatterns = [path("", WalletView.as_view(), name="wallets")]
