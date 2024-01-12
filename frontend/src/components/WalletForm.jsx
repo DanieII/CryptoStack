@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useFormData } from "../utils/formData.js";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/apiService";
+import getcapitalizedWord from "../utils/getCapitalizedWord.js";
 
 const WalletForm = () => {
   const { formData, setFormData, handleInputChange } = useFormData({
@@ -43,7 +44,7 @@ const WalletForm = () => {
           </option>
           {platformOptions.map((platformOption) => (
             <option key={platformOption} value={platformOption}>
-              {platformOption.charAt(0).toUpperCase() + platformOption.slice(1)}
+              {getcapitalizedWord(platformOption)}
             </option>
           ))}
         </select>

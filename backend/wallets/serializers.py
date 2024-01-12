@@ -2,10 +2,18 @@ from rest_framework import serializers
 from .models import Wallet, Coin
 
 
+class CoinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coin
+        fields = ["id", "name", "amount"]
+
+
 class WalletListSerializer(serializers.ModelSerializer):
+    coins = CoinSerializer(many=True, source="coin_set")
+
     class Meta:
         model = Wallet
-        fields = ["id", "platform"]
+        fields = ["id", "platform", "coins"]
 
 
 class WalletCreateSerializer(serializers.ModelSerializer):
@@ -17,9 +25,3 @@ class WalletCreateSerializer(serializers.ModelSerializer):
         instance = super().to_internal_value(data)
         instance["user"] = self.context["request"].user
         return instance
-
-
-class CoinSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Coin
-        fields = "__all__"
