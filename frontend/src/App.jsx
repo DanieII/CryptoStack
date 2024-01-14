@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Portfolio from "./components/Portfolio.jsx";
 import Wallets from "./components/Wallets.jsx";
 import WalletForm from "./components/WalletForm.jsx";
+import WalletDetails from "./components/WalletDetails.jsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -34,6 +35,7 @@ function App() {
             <Route path="wallets">
               <Route index element={<Wallets />}></Route>
               <Route path="create" element={<WalletForm />}></Route>
+              <Route path=":walletId" element={<WalletDetails />}></Route>
             </Route>
           </Route>
           <Route

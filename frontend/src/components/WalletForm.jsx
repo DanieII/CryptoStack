@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useFormData } from "../utils/formData.js";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/apiService";
@@ -12,13 +12,16 @@ const WalletForm = () => {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const platformOptions = ["custom", "bybit", "mexc"];
+  const apiKeyRef = useRef();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    if (!(formData.platform && formData.api_key)) {
-      setErrors(["Please fill the required fields."]);
-      return;
+    if (formData.platform !== "custom") {
+      if (!(formData.platform && formData.api_key)) {
+        setErrors(["Please fill the required fields."]);
+        return;
+      }
     }
 
     try {
@@ -32,13 +35,30 @@ const WalletForm = () => {
     return null;
   };
 
+  const handlePlatformChange = (e) => {
+    if (e.target.value === "custom") {
+      apiKeyRef.current.style.display = "none";
+      apiKeyRef.current.required = false;
+    } else {
+      apiKeyRef.current.style.display = "block";
+      apiKeyRef.current.required = true;
+    }
+  };
+
   return (
-    <div>
+    <div className="container bg-neutral-900 rounded-2xl">
       <Link to="/wallets">
         <i className="fa-solid fa-arrow-left text-white"></i>
       </Link>
       <form className="form" onSubmit={handleOnSubmit} required>
-        <select name="platform" defaultValue="" onChange={handleInputChange}>
+        <select
+          name="platform"
+          defaultValue=""
+          onChange={(e) => {
+            handleInputChange(e);
+            handlePlatformChange(e);
+          }}
+        >
           <option value="" disabled>
             Select your platform
           </option>
@@ -54,6 +74,7 @@ const WalletForm = () => {
           placeholder="Api key"
           required
           onChange={handleInputChange}
+          ref={apiKeyRef}
         />
         {errors &&
           errors.map((error, index) => (

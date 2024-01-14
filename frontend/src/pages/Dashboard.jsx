@@ -6,9 +6,7 @@ const Dashboard = () => {
     <div className="py-8 px-5 flex flex-col gap-4">
       <NavBar />
       <main>
-        <div className="container bg-neutral-900 rounded-2xl">
-          <Outlet />
-        </div>
+        <Outlet />
       </main>
     </div>
   );

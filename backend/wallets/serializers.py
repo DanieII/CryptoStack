@@ -1,14 +1,9 @@
 from rest_framework import serializers
-from .models import Wallet, Coin
+from .models import Wallet
+from coins.serializers import CoinSerializer
 
 
-class CoinSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Coin
-        fields = ["id", "name", "amount"]
-
-
-class WalletListSerializer(serializers.ModelSerializer):
+class WalletSerializer(serializers.ModelSerializer):
     coins = CoinSerializer(many=True, source="coin_set")
 
     class Meta:
