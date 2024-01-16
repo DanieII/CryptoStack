@@ -7,18 +7,19 @@ import {
   calculate24HCHange,
   calculateWalletBalance,
 } from "../utils/wallet";
+import Coins from "./Coins";
 
 const WalletDetails = () => {
   const [walletBalance, setWalletBalance] = useState(0);
-  const [wallet24HChange, setWallet24HChange] = useState("0%");
+  const [wallet24HChange, setWallet24HChange] = useState(0);
   const [wallet, setWallet] = useState();
+  const [coins, setCoins] = useState();
   const { walletId } = useParams();
   const { formData, setFormData, handleInputChange } = useFormData({
     walletId: walletId,
     name: "",
     amount: 0,
   });
-  const navigate = useNavigate();
   const coinFormRef = useRef();
 
   const getWallet = async () => {
@@ -36,9 +37,12 @@ const WalletDetails = () => {
     }
 
     const coins = await getWalletCoins(wallet);
+    const balance = calculateWalletBalance(coins);
+    const change = calculate24HCHange(coins, balance);
 
-    setWalletBalance(calculateWalletBalance(coins));
-    setWallet24HChange(calculate24HCHange(coins, walletBalance));
+    setCoins(coins);
+    setWalletBalance(balance);
+    setWallet24HChange(change);
   };
 
   const handleAddCoinClick = (e) => {
@@ -48,9 +52,7 @@ const WalletDetails = () => {
   const handleCoinFormSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
     const response = api.post("/coins/", formData);
-    console.log(response);
   };
 
   useEffect(() => {
@@ -58,8 +60,8 @@ const WalletDetails = () => {
   }, []);
 
   return (
-    <div className="container bg-neutral-900 rounded-2xl text-white">
-      <div className="flex justify-between pb-8 relative">
+    <div className="flex flex-col gap-6  text-white">
+      <div className="container flex flex-col justify-between relative bg-neutral-900 rounded-2xl">
         <Link to="/wallets">
           <i className="fa-solid fa-arrow-left text-white "></i>
         </Link>
@@ -97,21 +99,22 @@ const WalletDetails = () => {
             </form>
           </div>
         ) : null}
+        <div className="flex justify-around text-center py-10">
+          <div>
+            <p className="text-xl">Unique Coins</p>
+            <p className="text-2xl">{wallet ? wallet.coins.length : 0}</p>
+          </div>
+          <div>
+            <p className="text-xl">Wallet Balance</p>
+            <p className="text-2xl">${walletBalance}</p>
+          </div>
+          <div>
+            <p className="text-xl">24 Hour Change</p>
+            <p className="text-2xl">{wallet24HChange}%</p>
+          </div>
+        </div>
       </div>
-      <div className="flex justify-around text-center">
-        <div>
-          <p className="text-xl">Coins Amount</p>
-          <p className="text-2xl">{wallet ? wallet.coins.length : 0}</p>
-        </div>
-        <div>
-          <p className="text-xl">Wallet Balance</p>
-          <p className="text-2xl">{walletBalance}</p>
-        </div>
-        <div>
-          <p className="text-xl">24 Hour Change</p>
-          <p className="text-2xl">{wallet24HChange}</p>
-        </div>
-      </div>
+      {coins && <Coins coins={coins} />}
     </div>
   );
 };

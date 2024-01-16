@@ -20,7 +20,7 @@ const Wallets = () => {
         <thead>
           <tr>
             <th className="text-left p-3">Platform</th>
-            <th className="text-right p-3">Coins</th>
+            <th className="text-right p-3">Unique Coins</th>
             <th className="text-right p-3">Balance</th>
             <th className="text-right p-3">24H Change</th>
           </tr>

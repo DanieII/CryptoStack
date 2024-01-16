@@ -15,20 +15,17 @@ const getWalletCoins = async (wallet) => {
 };
 
 const calculate24HCHange = (coins, balance) => {
-  let balance24HAgo = 0;
+  const totalValue24HrAgo = coins.reduce((total, coin) => {
+    const price24HrAgo =
+      parseFloat(coin.priceUsd) /
+      (1 + parseFloat(coin.changePercent24Hr) / 100);
 
-  for (const coin of coins) {
-    const coinAmount = parseInt(coin.amount);
-    const coinPrice = parseFloat(coin.priceUsd);
-    const coin24HChange = parseFloat(coin.changePercent24Hr);
+    return total + coin.amount * price24HrAgo;
+  }, 0);
 
-    const priceNow = coinAmount * coinPrice;
-    balance24HAgo += priceNow / (1 + coin24HChange / 100);
-  }
+  const change = ((balance - totalValue24HrAgo) / totalValue24HrAgo) * 100;
 
-  const change = (balance - balance24HAgo) / balance24HAgo;
-
-  return `${change.toFixed(2)}%`;
+  return change.toFixed(2);
 };
 
 const calculateWalletBalance = (coins) => {
@@ -37,7 +34,7 @@ const calculateWalletBalance = (coins) => {
     0,
   );
 
-  return `$${balance.toFixed(2)}`;
+  return balance.toFixed(2);
 };
 
 export { getWalletCoins, calculate24HCHange, calculateWalletBalance };

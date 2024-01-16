@@ -18,9 +18,11 @@ const Wallet = ({ wallet }) => {
     }
 
     const coins = await getWalletCoins(wallet);
+    const balance = calculateWalletBalance(coins);
+    const change = calculate24HCHange(coins, balance);
 
-    setWalletBalance(calculateWalletBalance(coins));
-    setWallet24HChange(calculate24HCHange(coins, walletBalance));
+    setWalletBalance(balance);
+    setWallet24HChange(change);
   };
 
   const handleRowClick = () => {
@@ -38,8 +40,8 @@ const Wallet = ({ wallet }) => {
     >
       <th className="text-left p-3">{getcapitalizedWord(wallet.platform)}</th>
       <th className="text-right p-3">{wallet.coins.length}</th>
-      <th className="text-right p-3">{walletBalance}</th>
-      <th className="text-right p-3">{wallet24HChange}</th>
+      <th className="text-right p-3">${walletBalance}</th>
+      <th className="text-right p-3">{wallet24HChange}%</th>
     </tr>
   );
 };
