@@ -9,7 +9,7 @@ import {
 
 const Wallet = ({ wallet }) => {
   const [walletBalance, setWalletBalance] = useState(0);
-  const [wallet24HChange, setWallet24HChange] = useState("0%");
+  const [wallet24HChange, setWallet24HChange] = useState("0");
   const navigate = useNavigate();
 
   const setWalletInfo = async () => {

@@ -11,12 +11,12 @@ const Wallets = () => {
   }, []);
 
   return (
-    <div className="container bg-neutral-900 rounded-2xl">
+    <div className="container bg-neutral-900 rounded-2xl text-white">
       {" "}
-      <Link className="text-white underline" to="create">
+      <Link className="underline" to="create">
         Create a wallet
       </Link>
-      <table className="text-white w-full mt-2">
+      <table className="w-full mt-2">
         <thead>
           <tr>
             <th className="text-left p-3">Platform</th>

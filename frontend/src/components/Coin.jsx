@@ -1,7 +1,5 @@
-import { useState } from "react";
-
 const Coin = ({ coin }) => {
-  const getCoinLogoLink = (coin) => {
+  const getCoinLogoUrl = (coin) => {
     const symbol = coin.symbol.toLowerCase();
     return `https://assets.coincap.io/assets/icons/${symbol}@2x.png`;
   };
@@ -17,7 +15,7 @@ const Coin = ({ coin }) => {
         <div className="flex gap-3 content-center items-center">
           <img
             className="max-w-10"
-            src={getCoinLogoLink(coin)}
+            src={getCoinLogoUrl(coin)}
             alt={`${coin.name} logo`}
           />
           <div>
