@@ -2,37 +2,37 @@ import time
 import requests
 import hmac
 import hashlib
+from .platform import Platform
 
 
 URL = "https://www.mexc.com/open/api/v2/account/info"
-# TODO Get keys through user
-API_KEY = ""
-SECRET_KEY = ""
 
 
-def get_server_time():
-    return int(time.time() * 1000)
+class Mexc(Platform):
+    def get_wallet_coins(api_key, api_secret):
+        headers = {
+            "ApiKey": api_key,
+            "Request-Time": str(Mexc.get_server_time()),
+            "Signature": Mexc.get_signature(api_key, api_secret),
+        }
+        response = requests.request("GET", URL, headers=headers)
 
+        if response.status_code != 200:
+            return False
 
-def get_signature():
-    signature = API_KEY + str(get_server_time())
-    signature = hmac.new(
-        SECRET_KEY.encode(), signature.encode(), hashlib.sha256
-    ).hexdigest()
-    return signature
+        data = dict(response.json())
+        coins = data["data"]
 
+        return coins
 
-def get_wallet_coins(user):
-    headers = {
-        "Accept-Language": "en-US,en;q=0.5",
-        "ApiKey": API_KEY,
-        "Request-Time": str(get_server_time()),
-        "Signature": get_signature(),
-    }
-    response = requests.request("GET", URL, headers=headers)
-    data = dict(response.json())
-    assets = data["data"]
-    coins = {}
+    @staticmethod
+    def get_server_time():
+        return int(time.time() * 1000)
 
-    for name, info in assets.items():
-        coins[name] = float(info.available)
+    @staticmethod
+    def get_signature(api_key, api_secret):
+        signature = api_key + str(Mexc.get_server_time())
+        signature = hmac.new(
+            api_secret.encode(), signature.encode(), hashlib.sha256
+        ).hexdigest()
+        return signature

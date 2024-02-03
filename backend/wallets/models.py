@@ -9,3 +9,4 @@ class Wallet(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     platform = models.CharField(max_length=200, choices=PLATFORM_CHOICES)
     api_key = models.CharField(max_length=200, null=True, blank=True)
+    api_secret = models.CharField(max_length=200, null=True, blank=True)
