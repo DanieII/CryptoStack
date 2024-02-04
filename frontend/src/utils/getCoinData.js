@@ -1,3 +1,5 @@
+import apiCoins from "./apiCoins";
+
 const getCoinData = async (coins) => {
   // const pricesWs = new WebSocket(
   //   "wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin",
@@ -7,7 +9,7 @@ const getCoinData = async (coins) => {
   // };
 
   const coinNames = coins.reduce(
-    (names, coin) => [...names, coin.name.toLowerCase()],
+    (names, coin) => [...names, apiCoins[coin.name.toUpperCase()]],
     [],
   );
   const response = await fetch(

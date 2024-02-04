@@ -8,6 +8,8 @@ import {
   calculateWalletBalance,
 } from "../utils/wallet";
 import Coins from "./Coins";
+import apiCoins from "../utils/apiCoins";
+import getcapitalizedWord from "../utils/getCapitalizedWord";
 
 const WalletDetails = () => {
   const [walletBalance, setWalletBalance] = useState(0);
@@ -39,7 +41,6 @@ const WalletDetails = () => {
     const coins = await getWalletCoins(wallet);
     const balance = calculateWalletBalance(coins);
     const change = calculate24HCHange(coins, balance);
-
     setCoins(coins);
     setWalletBalance(balance);
     setWallet24HChange(change);
@@ -52,7 +53,19 @@ const WalletDetails = () => {
   const handleCoinFormSubmit = async (e) => {
     e.preventDefault();
 
-    const response = api.post("/coins/", formData);
+    try {
+      await api.post("/coins/", formData);
+      setWalletInfo();
+    } catch (error) {
+      return;
+    }
+  };
+
+  const getReadableCoinName = (coinName) => {
+    return coinName
+      .split("-")
+      .map((w) => getcapitalizedWord(w))
+      .join(" ");
   };
 
   useEffect(() => {
@@ -62,43 +75,45 @@ const WalletDetails = () => {
   return (
     <div className="flex flex-col gap-6  text-white">
       <div className="container flex flex-col justify-between relative bg-neutral-900 rounded-2xl">
-        <Link to="/wallets">
-          <i className="fa-solid fa-arrow-left text-white "></i>
-        </Link>
-        {wallet && wallet.platform === "custom" ? (
-          <div>
-            <p
-              className="underline cursor-pointer"
-              onClick={handleAddCoinClick}
-            >
-              Add a coin
-            </p>
-            <form
-              className="absolute top-8 right-0 form !hidden border border-neutral-800"
-              onSubmit={handleCoinFormSubmit}
-              ref={coinFormRef}
-            >
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                required
-                onChange={handleInputChange}
-              />
-              <input
-                type="number"
-                name="amount"
-                placeholder="Amount"
-                min="1"
-                required
-                onChange={handleInputChange}
-              />
-              <button type="submit" className="button text-black">
-                Add Coin
-              </button>
-            </form>
-          </div>
-        ) : null}
+        <div className="flex justify-between">
+          <Link to="/wallets">
+            <i className="fa-solid fa-arrow-left text-white "></i>
+          </Link>
+          {wallet?.platform === "custom" ? (
+            <div>
+              <p
+                className="underline cursor-pointer"
+                onClick={handleAddCoinClick}
+              >
+                Add a coin
+              </p>
+              <form
+                className="absolute top-10 right-0 form !hidden border border-neutral-800"
+                onSubmit={handleCoinFormSubmit}
+                ref={coinFormRef}
+              >
+                <select name="name" required onChange={handleInputChange}>
+                  {Object.entries(apiCoins).map(([symbol, name]) => (
+                    <option key={symbol} value={symbol}>
+                      {getReadableCoinName(name)}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="number"
+                  name="amount"
+                  placeholder="Amount"
+                  min="1"
+                  required
+                  onChange={handleInputChange}
+                />
+                <button type="submit" className="button text-black">
+                  Add Coin
+                </button>
+              </form>
+            </div>
+          ) : null}
+        </div>
         <div className="flex justify-around text-center py-10">
           <div>
             <p className="text-xl">Unique Coins</p>
@@ -110,7 +125,13 @@ const WalletDetails = () => {
           </div>
           <div>
             <p className="text-xl">24 Hour Change</p>
-            <p className="text-2xl">{wallet24HChange}%</p>
+            <p
+              className={`text-2xl ${
+                wallet24HChange < 0 ? "text-red-600" : "text-green-600"
+              }`}
+            >
+              {wallet24HChange}%
+            </p>
           </div>
         </div>
       </div>

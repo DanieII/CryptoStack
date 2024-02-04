@@ -41,7 +41,13 @@ const Wallet = ({ wallet }) => {
       <th className="text-left p-3">{getcapitalizedWord(wallet.platform)}</th>
       <th className="text-right p-3">{wallet.coins.length}</th>
       <th className="text-right p-3">${walletBalance}</th>
-      <th className="text-right p-3">{wallet24HChange}%</th>
+      <th
+        className={`text-right p-3 ${
+          wallet24HChange < 0 ? "text-red-600" : "text-green-600"
+        }`}
+      >
+        {wallet24HChange}%
+      </th>
     </tr>
   );
 };

@@ -26,7 +26,11 @@ const Coin = ({ coin }) => {
       </th>
       <th className="text-right p-3">{coin.amount}</th>
       <th className="text-right p-3">${calculateHoldings(coin)}</th>
-      <th className="text-right p-3">
+      <th
+        className={`text-right p-3 ${
+          coin.changePercent24Hr < 0 ? "text-red-600" : "text-green-600"
+        }`}
+      >
         {parseFloat(coin.changePercent24Hr).toFixed(2)}%
       </th>
     </tr>

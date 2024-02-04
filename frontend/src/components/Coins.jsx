@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import Coin from "./Coin";
 
 const Coins = ({ coins }) => {

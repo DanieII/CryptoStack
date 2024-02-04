@@ -35,10 +35,8 @@ class WalletCreateSerializer(serializers.ModelSerializer):
         self.api_key = api_key
         self.api_secret = api_secret
 
-        if not platform_class:
-            return
-
-        platform_class.validate_api_connection(api_key, api_secret)
+        if platform_class:
+            platform_class.validate_api_connection(api_key, api_secret)
 
         return super().validate(attrs)
 
