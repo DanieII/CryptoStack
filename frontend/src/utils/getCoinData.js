@@ -8,6 +8,10 @@ const getCoinData = async (coins) => {
   //   console.log(msg.data);
   // };
 
+  if (coins.length === 0) {
+    return [];
+  }
+
   const coinNames = coins.reduce(
     (names, coin) => [...names, apiCoins[coin.name.toUpperCase()]],
     [],
@@ -17,7 +21,7 @@ const getCoinData = async (coins) => {
   );
   const data = await response.json();
 
-  return data;
+  return data.data;
 };
 
 export default getCoinData;

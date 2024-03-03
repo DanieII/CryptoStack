@@ -6,7 +6,7 @@ const getWalletCoins = async (wallet) => {
 
   for (const coin of wallet.coins) {
     const { name, amount } = coin;
-    const coinData = data.data.find((c) => c.symbol === coin.name);
+    const coinData = data.find((c) => c.symbol === coin.name);
 
     coins.push({ name, amount, ...coinData });
   }
