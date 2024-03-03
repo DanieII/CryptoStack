@@ -15,9 +15,7 @@ class Platform(ABC):
         coin_instances = []
 
         for name, balance in coins.items():
-            coin_instances.append(
-                Coin(wallet=wallet, name=name, amount=float(balance["available"]))
-            )
+            coin_instances.append(Coin(wallet=wallet, name=name, amount=float(balance)))
 
         Coin.objects.bulk_create(coin_instances)
 
@@ -26,4 +24,4 @@ class Platform(ABC):
         coins = cls.get_wallet_coins(api_key, api_secret)
 
         if not coins:
-            raise ValidationError("Coundn't connect to platform")
+            raise ValidationError("Couldn't connect to platform")

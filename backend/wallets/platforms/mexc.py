@@ -16,12 +16,16 @@ class Mexc(Platform):
             "Signature": Mexc.get_signature(api_key, api_secret),
         }
         response = requests.request("GET", URL, headers=headers)
+        coins = {}
 
         if response.status_code != 200:
             return False
 
-        data = dict(response.json())
-        coins = data["data"]
+        coins_info = response.json()["data"]
+
+        for coin_name, coin_balance in coins_info.items():
+            coin_amount = coin_balance["available"]
+            coins[coin_name] = coin_amount
 
         return coins
 
@@ -35,4 +39,5 @@ class Mexc(Platform):
         signature = hmac.new(
             api_secret.encode(), signature.encode(), hashlib.sha256
         ).hexdigest()
+
         return signature

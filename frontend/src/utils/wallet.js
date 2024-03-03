@@ -8,7 +8,9 @@ const getWalletCoins = async (wallet) => {
     const { name, amount } = coin;
     const coinData = data.find((c) => c.symbol === coin.name);
 
-    coins.push({ name, amount, ...coinData });
+    if (coinData) {
+      coins.push({ name, amount, ...coinData });
+    }
   }
 
   return coins;
