@@ -11,7 +11,7 @@ const Balance = () => {
     let totalBalance = 0;
 
     for (const wallet of wallets) {
-      const walletCoins = await getWalletCoins(wallet);
+      const walletCoins = await getWalletCoins(wallet.coins);
       const walletBalance = parseFloat(calculateWalletBalance(walletCoins));
       totalBalance += walletBalance;
 
@@ -76,7 +76,7 @@ const Balance = () => {
   }, []);
 
   return (
-    <div className="flex">
+    <div className="container flex bg-neutral-900 rounded-2xl">
       <p className="flex-1 text-3xl my-auto text-center">Balance ${balance}</p>
       <canvas className="flex-1 !w-1/2 !h-1/2" id="line-chart"></canvas>
     </div>

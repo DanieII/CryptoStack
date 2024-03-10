@@ -17,7 +17,7 @@ const Wallet = ({ wallet }) => {
       return;
     }
 
-    const coins = await getWalletCoins(wallet);
+    const coins = await getWalletCoins(wallet.coins);
     const balance = calculateWalletBalance(coins);
     const change = calculate24HCHange(coins, balance);
 

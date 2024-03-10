@@ -1,19 +1,19 @@
 import getCoinData from "./getCoinData";
 
-const getWalletCoins = async (wallet) => {
-  const data = await getCoinData(wallet.coins);
-  const coins = [];
+const getWalletCoins = async (coins) => {
+  const data = await getCoinData(coins);
+  const walletCoins = [];
 
-  for (const coin of wallet.coins) {
+  for (const coin of coins) {
     const { name, amount } = coin;
     const coinData = data.find((c) => c.symbol === coin.name);
 
     if (coinData) {
-      coins.push({ name, amount, ...coinData });
+      walletCoins.push({ name, amount, ...coinData });
     }
   }
 
-  return coins;
+  return walletCoins;
 };
 
 const calculate24HCHange = (coins, balance) => {

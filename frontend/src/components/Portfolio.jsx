@@ -1,9 +1,11 @@
 import Balance from "./Balance";
+import TopCoins from "./TopCoins";
 
 const Portfolio = () => {
   return (
-    <div className="container bg-neutral-900 rounded-2xl text-white">
+    <div className="flex flex-col gap-6 text-white">
       <Balance />
+      <TopCoins />
     </div>
   );
 };
