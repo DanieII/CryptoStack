@@ -7,7 +7,7 @@ import {
   calculateWalletBalance,
 } from "../utils/wallet";
 
-const Wallet = ({ wallet }) => {
+const Wallet = ({ wallet, onDelete }) => {
   const [walletBalance, setWalletBalance] = useState(0);
   const [wallet24HChange, setWallet24HChange] = useState("0");
   const navigate = useNavigate();
@@ -47,6 +47,11 @@ const Wallet = ({ wallet }) => {
         }`}
       >
         {wallet24HChange}%
+      </th>
+      <th>
+        <p className="text-red-600 w-fit mx-auto" onClick={onDelete}>
+          Delete <i className="fa-solid fa-trash"></i>
+        </p>
       </th>
     </tr>
   );

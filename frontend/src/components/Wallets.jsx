@@ -6,6 +6,16 @@ import Wallet from "./Wallet";
 const Wallets = () => {
   const [wallets, setWallets] = useState([]);
 
+  const handleDeleteClick = (walletId) => {
+    return (e) => {
+      e.stopPropagation();
+      api.delete(`/wallets/${walletId}`);
+      setWallets((prevWallets) =>
+        prevWallets.filter((wallet) => wallet.id !== walletId),
+      );
+    };
+  };
+
   useEffect(() => {
     api.get("/wallets/").then((response) => setWallets(response.data));
   }, []);
@@ -27,7 +37,11 @@ const Wallets = () => {
         </thead>
         <tbody>
           {wallets.map((wallet) => (
-            <Wallet key={wallet.id} wallet={wallet} />
+            <Wallet
+              key={wallet.id}
+              wallet={wallet}
+              onDelete={handleDeleteClick(wallet.id)}
+            />
           ))}
         </tbody>
       </table>

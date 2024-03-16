@@ -6,7 +6,7 @@ from .serializers import (
 from .models import Wallet
 
 
-class WalletView(generics.ListCreateAPIView):
+class WalletsView(generics.ListCreateAPIView):
     queryset = Wallet.objects.all()
 
     def get_serializer_class(self):
@@ -16,7 +16,7 @@ class WalletView(generics.ListCreateAPIView):
             return WalletSerializer
 
 
-class WalletDetailsView(generics.RetrieveAPIView):
+class WalletView(generics.RetrieveDestroyAPIView):
     serializer_class = WalletSerializer
 
     def get_queryset(self):

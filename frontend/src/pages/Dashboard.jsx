@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   return (
-    <div className="py-8 px-5 flex flex-col gap-4">
+    <div className="py-8 px-5 flex flex-col gap-4 sm:text-xl">
       <NavBar />
       <main>
         <Outlet />
