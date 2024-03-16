@@ -31,6 +31,12 @@ body {
   @apply w-full max-w-screen-xl mx-auto py-4 px-8;
 }
 
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+}
+
 /* Form */
 
 .form {

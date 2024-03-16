@@ -1939,9 +1939,6 @@ const apiCoins = {
   SEUR: "seur",
   KOBE: "shabu-shabu-finance",
   SHC: "niobium-coin",
-  42: "42-coin",
-  808: "808coin",
-  888: "octocoin",
 };
 
 export default apiCoins;

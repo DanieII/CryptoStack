@@ -38,19 +38,21 @@ const Wallet = ({ wallet, onDelete }) => {
       className="hover:bg-neutral-800 transition-all cursor-pointer"
       onClick={handleRowClick}
     >
-      <th className="text-left p-3">{getcapitalizedWord(wallet.platform)}</th>
-      <th className="text-right p-3">{wallet.coins.length}</th>
-      <th className="text-right p-3">${walletBalance}</th>
+      <th className="text-left py-2 sm:p-3">
+        {getcapitalizedWord(wallet.platform)}
+      </th>
+      <th className="text-right hidden sm:block p-3">{wallet.coins.length}</th>
+      <th className="text-right py-2 sm:p-3">${walletBalance}</th>
       <th
-        className={`text-right p-3 ${
+        className={`text-right hidden sm:block p-3 ${
           wallet24HChange < 0 ? "text-red-600" : "text-green-600"
         }`}
       >
         {wallet24HChange}%
       </th>
-      <th>
-        <p className="text-red-600 w-fit mx-auto" onClick={onDelete}>
-          Delete <i className="fa-solid fa-trash"></i>
+      <th className="w-1/3 sm:w-1/5">
+        <p className="text-red-600 text-right w-fit ml-auto" onClick={onDelete}>
+          <i className="fa-solid fa-trash"></i>
         </p>
       </th>
     </tr>

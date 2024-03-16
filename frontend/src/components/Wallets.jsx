@@ -23,16 +23,16 @@ const Wallets = () => {
   return (
     <div className="container bg-neutral-900 rounded-2xl text-white">
       {" "}
-      <Link className="underline" to="create">
+      <Link className="underline block text-center sm:text-left" to="create">
         Create a wallet
       </Link>
       <table className="w-full mt-2">
         <thead>
           <tr>
-            <th className="text-left p-3">Platform</th>
-            <th className="text-right p-3">Unique Coins</th>
-            <th className="text-right p-3">Balance</th>
-            <th className="text-right p-3">24H Change</th>
+            <th className="text-left py-3 sm:p-3">Platform</th>
+            <th className="text-right hidden sm:block p-3">Unique Coins</th>
+            <th className="text-right py-3 sm:p-3">Balance</th>
+            <th className="text-right hidden sm:block p-3">24H Change</th>
           </tr>
         </thead>
         <tbody>

@@ -29,7 +29,6 @@ const TopCoins = () => {
   };
 
   const getTopCoins = (coins) => {
-    console.log(coins);
     const topCoins = coins.sort(
       (a, b) => getCoinHoldings(b) - getCoinHoldings(a),
     );
@@ -49,7 +48,7 @@ const TopCoins = () => {
 
   return (
     <div className="container bg-neutral-900 rounded-2xl">
-      <p className="text-2xl ml-8">Top Coins</p>
+      <p className="text-center sm:text-left text-2xl sm:ml-8">Top Coins</p>
       {coins && <Coins coins={coins} />}
     </div>
   );

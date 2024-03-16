@@ -11,8 +11,8 @@ const Coin = ({ coin }) => {
 
   return (
     <tr className="hover:bg-neutral-800 transition-all">
-      <th className="text-left p-3">
-        <div className="flex gap-3 content-center items-center">
+      <th className="text-left py-2 sm:p-3">
+        <div className="flex gap-2 sm:gap-3 content-center items-center">
           <img
             className="max-w-10"
             src={getCoinLogoUrl(coin)}
@@ -24,10 +24,10 @@ const Coin = ({ coin }) => {
           </div>
         </div>
       </th>
-      <th className="text-right p-3">{coin.amount}</th>
-      <th className="text-right p-3">${calculateHoldings(coin)}</th>
+      <th className="text-right hidden sm:block sm:p-3">{coin.amount}</th>
+      <th className="text-right py-2 sm:p-3">${calculateHoldings(coin)}</th>
       <th
-        className={`text-right p-3 ${
+        className={`text-right hidden sm:block sm:p-3 ${
           coin.changePercent24Hr < 0 ? "text-red-600" : "text-green-600"
         }`}
       >

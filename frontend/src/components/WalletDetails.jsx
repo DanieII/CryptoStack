@@ -17,9 +17,10 @@ const WalletDetails = () => {
   const [wallet, setWallet] = useState();
   const [coins, setCoins] = useState();
   const { walletId } = useParams();
+  const defaultCoinName = "BTC";
   const { formData, setFormData, handleInputChange } = useFormData({
     walletId: walletId,
-    name: "",
+    name: defaultCoinName,
     amount: 0,
   });
   const coinFormRef = useRef();
@@ -88,11 +89,16 @@ const WalletDetails = () => {
                 Add a coin
               </p>
               <form
-                className="absolute top-10 right-0 form !hidden border border-neutral-800"
+                className="absolute top-10 right-0 form !hidden border border-neutral-800 w-3/4 sm:w-1/2 md:w-1/3"
                 onSubmit={handleCoinFormSubmit}
                 ref={coinFormRef}
               >
-                <select name="name" required onChange={handleInputChange}>
+                <select
+                  name="name"
+                  defaultValue={defaultCoinName}
+                  required
+                  onChange={handleInputChange}
+                >
                   {Object.entries(apiCoins).map(([symbol, name]) => (
                     <option key={symbol} value={symbol}>
                       {getReadableCoinName(name)}
@@ -101,9 +107,10 @@ const WalletDetails = () => {
                 </select>
                 <input
                   type="number"
+                  step="any"
                   name="amount"
                   placeholder="Amount"
-                  min="1"
+                  min="0"
                   required
                   onChange={handleInputChange}
                 />
@@ -115,7 +122,7 @@ const WalletDetails = () => {
           ) : null}
         </div>
         <div className="flex justify-around text-center py-10">
-          <div>
+          <div className="hidden sm:block">
             <p className="text-xl">Unique Coins</p>
             <p className="text-2xl">{wallet ? wallet.coins.length : 0}</p>
           </div>

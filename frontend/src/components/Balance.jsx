@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { getWalletCoins, calculateWalletBalance } from "../utils/wallet";
 import api from "../services/apiService";
 import Chart from "chart.js/auto";
-
 const Balance = () => {
   const [balance, setBalance] = useState("0");
   let walletsData = {};
@@ -76,9 +75,9 @@ const Balance = () => {
   }, []);
 
   return (
-    <div className="container flex bg-neutral-900 rounded-2xl">
-      <p className="flex-1 text-3xl my-auto text-center">Balance ${balance}</p>
-      <canvas className="flex-1 !w-1/2 !h-1/2" id="line-chart"></canvas>
+    <div className="container flex flex-col gap-6 sm:gap-0 sm:flex-row bg-neutral-900 rounded-2xl">
+      <p className="flex-1 text-2xl my-auto text-center">Balance ${balance}</p>
+      <canvas className="flex-1 sm:!w-1/2 sm:!h-1/2" id="line-chart"></canvas>
     </div>
   );
 };
