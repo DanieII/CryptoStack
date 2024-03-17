@@ -51,7 +51,10 @@ const Wallet = ({ wallet, onDelete }) => {
         {wallet24HChange}%
       </th>
       <th className="w-1/3 sm:w-1/5">
-        <p className="text-red-600 text-right w-fit ml-auto" onClick={onDelete}>
+        <p
+          className="text-red-600 text-right w-fit ml-auto p-3"
+          onClick={onDelete}
+        >
           <i className="fa-solid fa-trash"></i>
         </p>
       </th>

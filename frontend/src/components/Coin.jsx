@@ -24,10 +24,12 @@ const Coin = ({ coin }) => {
           </div>
         </div>
       </th>
-      <th className="text-right hidden sm:block sm:p-3">{coin.amount}</th>
+      <th className="text-right hidden py-2 sm:table-cell sm:p-3">
+        {coin.amount}
+      </th>
       <th className="text-right py-2 sm:p-3">${calculateHoldings(coin)}</th>
       <th
-        className={`text-right hidden sm:block sm:p-3 ${
+        className={`text-right hidden py-2 sm:table-cell sm:p-3 ${
           coin.changePercent24Hr < 0 ? "text-red-600" : "text-green-600"
         }`}
       >

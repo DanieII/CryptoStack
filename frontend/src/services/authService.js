@@ -1,4 +1,5 @@
 import api from "./apiService.js";
+import { addTokenToHeaders } from "./apiService.js";
 
 const setToken = (token) => {
   api.defaults.headers.common["Authorization"] = `Token ${token}`;
@@ -8,7 +9,10 @@ const setToken = (token) => {
 const login = async (data) => {
   const response = await api.post("/users/login/", data);
   const { token } = { ...response.data };
-  if (token) setToken(token);
+  if (token) {
+    setToken(token);
+    addTokenToHeaders();
+  }
 };
 
 const register = async (data) => {

@@ -6,7 +6,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { addTokenToHeaders } from "./services/apiService.js";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import LogoutPage from "./pages/LogoutPage.jsx";
@@ -20,8 +19,6 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!localStorage.getItem("token"),
   );
-
-  useEffect(addTokenToHeaders, []);
 
   return (
     <>

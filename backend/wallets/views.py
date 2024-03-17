@@ -7,7 +7,11 @@ from .models import Wallet
 
 
 class WalletsView(generics.ListCreateAPIView):
-    queryset = Wallet.objects.all()
+    def get_queryset(self):
+        user = self.request.user
+        wallets = Wallet.objects.filter(user=user)
+
+        return wallets
 
     def get_serializer_class(self):
         if self.request.method == "POST":
@@ -21,4 +25,7 @@ class WalletView(generics.RetrieveDestroyAPIView):
 
     def get_queryset(self):
         pk = self.kwargs.get("pk")
-        return Wallet.objects.filter(pk=pk)
+        user = self.request.user
+        wallet = Wallet.objects.filter(pk=pk, user=user)
+
+        return wallet
