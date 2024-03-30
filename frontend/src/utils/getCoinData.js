@@ -1,13 +1,14 @@
 import apiCoins from "./apiCoins";
 
-const getCoinData = async (coins) => {
-  // const pricesWs = new WebSocket(
-  //   "wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin",
-  // );
-  // pricesWs.onmessage = function (msg) {
-  //   console.log(msg.data);
-  // };
+// Idea for web socket implementation
+// const pricesWs = new WebSocket(
+//   "wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin",
+// );
+// pricesWs.onmessage = function (msg) {
+//   console.log(msg.data);
+// };
 
+const getCoinData = async (coins) => {
   if (coins.length === 0) {
     return [];
   }

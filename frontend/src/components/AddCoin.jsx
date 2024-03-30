@@ -19,7 +19,6 @@ const AddCoin = ({ wallet, setWalletInfo }) => {
 
   const handleCoinFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(setWalletInfo);
 
     try {
       await api.post("/coins/", formData);

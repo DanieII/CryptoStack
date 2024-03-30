@@ -32,7 +32,6 @@ const WalletDetails = () => {
   };
 
   const setWalletInfo = async () => {
-    console.log("NEW SET");
     const walletData = await getWallet();
 
     if (!walletData || walletData.coins.length <= 0) {
