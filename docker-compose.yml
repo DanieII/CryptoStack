@@ -1,13 +1,13 @@
 services:
   backend:
-    image: crypto-stack-backend
+    image: danieii/crypto-stack-backend
     ports:
       - "8000:8000"
     volumes:
       - "./backend:/app"
 
   frontend:
-    image: crypto-stack-frontend
+    image: danieii/crypto-stack-frontend
     ports:
       - "5173:5173"
     volumes:
